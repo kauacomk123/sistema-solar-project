@@ -95,27 +95,65 @@
   </div>
 
   <!-- Botão flutuante -->
-<div class="chatbot-toggle" onclick="toggleChatbot()">💬</div>
+ <!-- Botão flutuante para abrir/fechar chatbot -->
+ <button id="chatbot-toggle" onclick="toggleChatbot()" class="chatbot-toggle">💬</button>
 
-<!-- Chatbot flutuante -->
-<div class="chatbot-container" id="chatbot">
-  <div class="chatbot-header">
-    IA Astral 💫
-    <span class="chatbot-close" onclick="toggleChatbot()">✖</span>
+   <!-- Chatbot flutuante -->
+  <div class="chatbot-container" id="chatbot">
+    <div class="chatbot-header">
+      IA Astral 💫
+      <span class="chatbot-close" onclick="toggleChatbot()">✖</span>
+    </div>
+
+    <div class="chatbot-body">
+      <input type="text" id="pergunta" placeholder="Pergunte sobre o Sistema Solar..." />
+      <button onclick="enviarPergunta()">Perguntar</button>
+      <div id="resposta"></div>
+    </div>
   </div>
-  <iframe src="https://meu-chatbot-gemini.onrender.com" frameborder="0"></iframe>
-</div>
 
-<script>
-  function toggleChatbot() {
-    const chatbot = document.getElementById('chatbot');
-    if (chatbot.style.display === 'flex') {
-      chatbot.style.display = 'none';
-    } else {
-      chatbot.style.display = 'flex';
+  <script>
+    function toggleChatbot() {
+      const chatbot = document.getElementById('chatbot');
+      if (chatbot.style.display === 'flex') {
+        chatbot.style.display = 'none';
+      } else {
+        chatbot.style.display = 'flex';
+      }
     }
-  }
-</script>
+
+    async function enviarPergunta() {
+      const pergunta = document.getElementById("pergunta").value.trim();
+      const respostaEl = document.getElementById("resposta");
+
+      if (!pergunta) {
+        respostaEl.innerText = "Por favor, digite uma pergunta.";
+        return;
+      }
+
+      respostaEl.innerText = "Carregando resposta...";
+
+      try {
+        const response = await fetch("http://localhost:5000/perguntar", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({ pergunta })
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          respostaEl.innerText = errorData.resposta || "Erro desconhecido.";
+          return;
+        }
+
+        const data = await response.json();
+        respostaEl.innerText = data.resposta;
+
+      } catch (error) {
+        respostaEl.innerText = "Erro ao consultar a IA: " + error.message;
+      }
+    }
+  </script>
 
 
 </body>
