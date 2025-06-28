@@ -94,5 +94,29 @@
     </div>
   </div>
 
+  <!-- Botão flutuante -->
+<div class="chatbot-toggle" onclick="toggleChatbot()">💬</div>
+
+<!-- Chatbot flutuante -->
+<div class="chatbot-container" id="chatbot">
+  <div class="chatbot-header">
+    IA Astral 💫
+    <span class="chatbot-close" onclick="toggleChatbot()">✖</span>
+  </div>
+  <iframe src="https://meu-chatbot-gemini.onrender.com" frameborder="0"></iframe>
+</div>
+
+<script>
+  function toggleChatbot() {
+    const chatbot = document.getElementById('chatbot');
+    if (chatbot.style.display === 'flex') {
+      chatbot.style.display = 'none';
+    } else {
+      chatbot.style.display = 'flex';
+    }
+  }
+</script>
+
+
 </body>
 </html>

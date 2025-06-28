@@ -64,3 +64,67 @@ body {
   font-size: 22px;
   color: black;
 }
+
+/* Botão flutuante */
+.chatbot-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: #1e1f3d;
+  color: #fff;
+  font-size: 30px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 60px;
+  cursor: pointer;
+  z-index: 10000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  transition: background 0.3s;
+}
+
+.chatbot-toggle:hover {
+  background-color: #343666;
+}
+
+/* Janela do chatbot */
+.chatbot-container {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 300px;
+  height: 400px;
+  background-color: #0b0e1c;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  overflow: hidden;
+  z-index: 9999;
+  display: none; /* escondido por padrão */
+  flex-direction: column;
+}
+
+/* Cabeçalho do chatbot */
+.chatbot-header {
+  background-color: #1e1f3d;
+  color: #fff;
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+}
+
+.chatbot-close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Estilo iframe */
+.chatbot-container iframe {
+  width: 100%;
+  height: calc(100% - 40px);
+  border: none;
+}
